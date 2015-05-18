@@ -1,11 +1,76 @@
 package lab1;
 
+import java.util.ArrayList;
+
 /**
  * A representation of a library of books.
- * @author <a href="mailto:rkhatchadourian@citytech.cuny.edu">Raffi Khatchadourian</a>.
+ *
+ * @author Niaz Morshed and Devaya Gurung.
  */
 public class Library {
-    // TODO: Add the missing implementation to this class
+
+    String address = "";
+    ArrayList<Book> books = new ArrayList<>();
+    int numBooks = 0;
+
+    public Library(String new_address) {
+        address = new_address;
+    }
+
+    public void addBook(Book book) {
+        books.add(book);
+    }
+
+    public static void printOpeningHours() {
+        System.out.println("Libraries are open daily from 9am to 5pm.");
+    }
+
+    public void printAddress() {
+        System.out.println(address);
+    }
+
+    public void borrowBook(String title) {
+        if (null != title) {
+            for (Book book : books) {
+                if (book.getTitle().equals(title)) {
+                    if (true == book.isBorrowed()) {
+                        System.out.println("Sorry, this book was already borrowed.");
+                        return;
+                    } else {
+                        System.out.println("You successfully borrowed " + book.getTitle());
+                        book.isBorrowed();
+                        return;
+                    }
+                }
+            }
+            System.out.println("Sorry, that book was not found in our library.");
+        }
+    }
+
+    public void returnBook(String title) {
+        if (null != title) {
+            for (Book book : books) {
+                if (book.getTitle().equals(title)) {
+                    System.out.println("You successfully returned " + title);
+                    book.returned();
+                    return;
+                }
+            }
+        }
+    }
+
+    public void printAvailableBooks() {
+        if (books.isEmpty()) {
+            System.out.println("No books were found in the catalog.");
+        }
+        for (Book book : books) {
+            if (book.isBorrowed()) {
+
+            } else {
+                System.out.println(book.getTitle());
+            }
+        }
+    }
 
     public static void main(String[] args) {
         // Create two libraries
